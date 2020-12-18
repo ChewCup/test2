@@ -1,0 +1,52 @@
+
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main">
+            <nav>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Class</a></li>
+                        <li><a href="#">Characters</a></li>
+                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </nav>
+    
+            <div class="character">
+                <div>
+                    <form id="input-form" action="/append">
+
+                        <div>
+                            <div>
+                                <label for="name" id="inputname">Your character name:</label>
+                            </div>
+                            <div>
+                                <input type="text" id="name" name="name"  placeholder="Enter name"><br><br>
+                            </div>
+                            
+                        </div>
+                        <label for="class">Class:</label>
+                        <select id="selectClass" name="nameclass">
+                            <option selected value="">--Select your class--</option>
+                            <option value="KungFuMaster">KFM</option>
+                            <option value="Warlock">Warlock</option>
+                            <option value="ForceMaster">ForceMaster</option>
+                            <option value="Summoner">Summoner</option>
+                        </select><br><br>
+                        <input type="submit" value="Create character">
+                    </form>
+                </div>
+            </div>
+
+    
+    
+        </div>
+        
+    </body>
+    </html>
