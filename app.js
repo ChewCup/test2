@@ -1,45 +1,44 @@
+// https://www.youtube.com/watch?v=edwfgkhhNC0&list=PLurIMwd6GdChn-aQOy37lbwWG2YE1o0rG&index=1
+
 const express = require('express');
 const app = express();
-var fs = require("fs");
+const fs = require("fs");
 const url = require("url");
 const http = require('http').createServer(app);
-const path = require('path');
+const path = require("path");
+/*const router = express.Router(); */
+/*const querystring = require('querystring');*/
 const bodyParser = require('body-parser');
 
-http.listen(8080, () => {
-    console.log('listening on 8080');
-
-});
-app.use(express.static("public"))
-app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
+app.use(express.json());
 
 app.get("/", (req,res) => {
     res.sendFile("/index.html", {root: __dirname})
- }); 
-
-app.get('/append?', (req,res) => {
-    res.json("/append.html")
-    });
-
-app.get("/append?:name", function(req,res) {
-    res.json("Id is "+req.query.name)
-});
-
-app.get("/append?:nameclass", function(req,res) {
-    res.json("Id is "+req.query.nameclass)
-});
+    let data = fs.readFileSync('charlist.lis', 'utf8', {root: __dirname});
     
-
-    /*res.write("<table>");
-    var name = query.name;
-    var nameclass = query.nameclass;
-    res.write("<p>Created " + name + " as " + nameclass + " \class\ </p>");
-    fs.appendFileSync('charlist.lis', name + " " + nameclass + "\n");
-    let data = fs.readFileSync('charlist.lis');
     let lines = data.toString().split(/\r?\n/);
     for (l of lines) {
-         res.write("<p>" + l + "</p>");
+        //res.write("<tr>\n");
+        let wordlist = l.split(',');
+        for (words of wordlist) {
+            res.json("<td>" + words + "</td>");
+        }
+        //res.write("<tr>");
     }
-        res.write("</table>");*/
+}); 
 
+app.get("/append", (res, req) => {
+    req.sendFile(path.join(__dirname, "/append.html"));
+    const charname = res.query.charname;
+    const nameclass = res.query.nameclass;
+    req.send("Name: " + charname + " Classname: " + nameclass);
+    fs.appendFileSync('charlist.lis', charname + " " + nameclass + "\n");
+});
+
+
+http.listen(8080, () => {
+    console.log('listening on 8080');
+});
 
